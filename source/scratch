@@ -1,0 +1,41 @@
+import tkinter as tk
+
+class QuestionPostingApp:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Question Posting Website")
+
+        # Widgets for posting questions
+        self.question_label = tk.Label(master, text="Post your question:")
+        self.question_label.pack()
+        self.question_entry = tk.Entry(master)
+        self.question_entry.pack()
+        self.post_button = tk.Button(master, text="Post", command=self.post_question)
+        self.post_button.pack()
+
+        # Widgets for viewing questions
+        self.question_listbox = tk.Listbox(master, width=50)
+        self.question_listbox.pack()
+        self.view_button = tk.Button(master, text="View", command=self.view_question)
+        self.view_button.pack()
+
+    def post_question(self):
+        question = self.question_entry.get()
+        self.question_listbox.insert(tk.END, question)
+        self.question_entry.delete(0, tk.END)
+
+    def view_question(self):
+        selection = self.question_listbox.curselection()
+        if selection:
+            question_index = selection[0]
+            question = self.question_listbox.get(question_index)
+            # Implement functionality to view and answer the selected question
+            print("Viewing question:", question)
+
+def main():
+    root = tk.Tk()
+    app = QuestionPostingApp(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
